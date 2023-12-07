@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  identity-api:
+    build: ./Invoicing.Identity.API
+    image: identity-api
+    working_dir: /app
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=identity-db;Port=5432;Database=YourDatabaseName;Username=YourUsername;Password=YourPassword
+    depends_on:
+      - identity-db
+    networks:
+      - identity-network-internal
+      - identity-network-external
+
+  identity-db:
+    image: postgres:16.1
+    container_name: identity-db
+    environment:
+      POSTGRES_DB: YourDatabaseName
+      POSTGRES_USER: YourUsername
+      POSTGRES_PASSWORD: YourPassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - /c/dev/csharp/tp24-invoicing/volumes/IdentityDbn:/var/lib/postgresql/data
+    networks:
+      - identity-network-internal
+
+networks:
+  identity-network-internal:
+    driver: bridge
+    internal: true
+  identity-network-external:
+    driver: bridge
