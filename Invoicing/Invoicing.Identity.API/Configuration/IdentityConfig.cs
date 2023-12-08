@@ -5,34 +5,34 @@ namespace Invoicing.Identity.API.Configuration;
 
 public static class IdentityConfig
 {
-    private static readonly ApiScope InvoicingApiScope = new ApiScope("invoicing", "Adding nad reading receivables");
-    private static readonly ApiScope StatisticsApiScope = new ApiScope("statistics", "Access to statistics");
-    
+    private static readonly ApiScope InvoicingApiScope = new("invoicing", "Adding nad reading receivables");
+    private static readonly ApiScope StatisticsApiScope = new("statistics", "Access to statistics");
+
     public static IEnumerable<IdentityResource> IdentityResources =>
-        new List<IdentityResource>()
+        new List<IdentityResource>
         {
             new IdentityResources.Email(),
             new IdentityResources.OpenId()
         };
-    
+
     public static IEnumerable<ApiScope> ApiScopes =>
         new List<ApiScope>
         {
             InvoicingApiScope,
             StatisticsApiScope
         };
-    
+
     public static IEnumerable<Client> Clients =>
         new List<Client>
         {
             // interactive ASP.NET Core Web App
-            new Client
+            new()
             {
                 ClientId = "client",
                 ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    
+
                 AllowedScopes = new List<string>
                 {
                     IdentityServerConstants.StandardScopes.OpenId,

@@ -9,13 +9,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.6" />
-        <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.6"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Invoicing.Identity.Infrastructure\Invoicing.Identity.Infrastructure.csproj" />
+        <ProjectReference Include="..\Invoicing.Identity.Infrastructure\Invoicing.Identity.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

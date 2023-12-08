@@ -1,6 +1,4 @@
 using System.Reflection;
-using System.Security.Cryptography;
-using Invoicing.Identity.API.Configuration;
 using Invoicing.Identity.API.Seeders;
 using Invoicing.Identity.Domain.Entities;
 using Invoicing.Identity.Infrastructure.Data;
@@ -15,10 +13,10 @@ builder.Host.UseSerilog((context, lc) => lc
     .Enrich.FromLogContext()
     .ReadFrom.Configuration(context.Configuration));
 
-string connectionString = builder.Configuration.GetConnectionString("IdentityDB") 
-                          ?? throw new ArgumentNullException("IdentityDB connection string is null.");
-string migrationsAssembly = typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name
-    ?? throw new ArgumentNullException("migrationsAssembly");
+var connectionString = builder.Configuration.GetConnectionString("IdentityDB")
+                       ?? throw new ArgumentNullException("IdentityDB connection string is null.");
+var migrationsAssembly = typeof(ApplicationDbContext).GetTypeInfo().Assembly.GetName().Name
+                         ?? throw new ArgumentNullException("migrationsAssembly");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -47,9 +45,6 @@ builder.Services
         options.ConfigureDbContext = b =>
             b.UseNpgsql(connectionString, opt => opt.MigrationsAssembly(migrationsAssembly));
     })
-    // .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
-    // .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
-    // .AddInMemoryClients(IdentityConfig.Clients)
     .AddAspNetIdentity<ApplicationUser>();
 
 builder.Services.AddAuthentication();
@@ -58,13 +53,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// builder.Services.AddControllers();
-
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
+app.UseSerilogRequestLogging();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -77,7 +71,5 @@ app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
-
-// app.MapControllers();
 
 app.Run();

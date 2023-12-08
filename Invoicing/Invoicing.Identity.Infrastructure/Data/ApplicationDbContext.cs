@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Invoicing.Identity.Infrastructure.Data;
 
-public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public DbSet<Company> Companies { get; set; }
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
+
+    public DbSet<Company> Companies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

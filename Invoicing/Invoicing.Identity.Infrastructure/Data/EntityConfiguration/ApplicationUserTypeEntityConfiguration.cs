@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Invoicing.Identity.Infrastructure.Data.EntityConfiguration;
 
-public class ApplicationUserTypeEntityConfiguration: IEntityTypeConfiguration<ApplicationUser>
+public class ApplicationUserTypeEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {

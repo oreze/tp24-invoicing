@@ -3,7 +3,6 @@ using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using IdentityModel;
 using Invoicing.Identity.API.Configuration;
-using Invoicing.Identity.API.Seeders;
 using Invoicing.Identity.Domain.Entities;
 using Invoicing.Identity.Domain.Enums;
 using Invoicing.Identity.Infrastructure.Data;
@@ -19,13 +18,13 @@ public class Seeder
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
-            PersistedGrantDbContext persistedGrantDbContext = scope.ServiceProvider.GetService<PersistedGrantDbContext>() ??
-                                              throw new ArgumentNullException(nameof(PersistedGrantDbContext));
-            ConfigurationDbContext configurationDbContext = scope.ServiceProvider.GetService<ConfigurationDbContext>() ??
-                                                          throw new ArgumentNullException(nameof(ConfigurationDbContext));
-            ApplicationDbContext applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>() ??
-                                                        throw new ArgumentNullException(nameof(ApplicationDbContext));
-            
+            var persistedGrantDbContext = scope.ServiceProvider.GetService<PersistedGrantDbContext>() ??
+                                          throw new ArgumentNullException(nameof(PersistedGrantDbContext));
+            var configurationDbContext = scope.ServiceProvider.GetService<ConfigurationDbContext>() ??
+                                         throw new ArgumentNullException(nameof(ConfigurationDbContext));
+            var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>() ??
+                                       throw new ArgumentNullException(nameof(ApplicationDbContext));
+
             await persistedGrantDbContext.Database.EnsureDeletedAsync();
             await configurationDbContext.Database.EnsureDeletedAsync();
             await applicationDbContext.Database.EnsureDeletedAsync();
@@ -47,35 +46,29 @@ public class Seeder
         await AddIdentityClients(configurationDbContext);
         await AddIdentityApiScopes(configurationDbContext);
         await AddIdentityResources(configurationDbContext);
-        
+
         await configurationDbContext.SaveChangesAsync();
     }
 
     private static async Task AddIdentityClients(ConfigurationDbContext configurationDbContext)
     {
         if (!configurationDbContext.Clients.Any())
-        {
             await configurationDbContext.Clients.AddRangeAsync(
                 IdentityConfig.Clients.Select(client => client.ToEntity()));
-        }
     }
-    
+
     private static async Task AddIdentityResources(ConfigurationDbContext configurationDbContext)
     {
         if (!configurationDbContext.IdentityResources.Any())
-        {
             await configurationDbContext.IdentityResources.AddRangeAsync(
                 IdentityConfig.IdentityResources.Select(res => res.ToEntity()));
-        }
     }
-    
+
     private static async Task AddIdentityApiScopes(ConfigurationDbContext configurationDbContext)
     {
         if (!configurationDbContext.ApiScopes.Any())
-        {
             await configurationDbContext.ApiScopes.AddRangeAsync(
                 IdentityConfig.ApiScopes.Select(apiScope => apiScope.ToEntity()));
-        }
     }
 
     private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
@@ -93,19 +86,16 @@ public class Seeder
 
     private static async Task SeedUsers(UserManager<ApplicationUser> userManager)
     {
-        foreach ((Roles role, IEnumerable<ApplicationUser> users) in DefaultEntities.DefaultUsers)
+        foreach ((var role, var users) in DefaultEntities.DefaultUsers)
+        foreach (var applicationUser in users)
         {
-            foreach (ApplicationUser applicationUser in users)
-            {
-                if (!await DoesUserExistAsync(userManager, applicationUser)) continue;
+            if (!await DoesUserExistAsync(userManager, applicationUser)) continue;
 
-                await CreateUserAsync(userManager, applicationUser);
-                await AssignToRoleAsync(userManager, applicationUser, role);
-                await AddClaimsAsync(userManager, applicationUser,
-                    new[] { new Claim(JwtClaimTypes.Role, role.ToString()) });
+            await CreateUserAsync(userManager, applicationUser);
+            await AssignToRoleAsync(userManager, applicationUser, role);
+            await AddClaimsAsync(userManager, applicationUser, new Claim(JwtClaimTypes.Role, role.ToString()));
 
-                Log.Debug($"User {applicationUser.UserName} created");
-            }
+            Log.Debug($"User {applicationUser.UserName} created");
         }
     }
 
@@ -118,6 +108,7 @@ public class Seeder
             Log.Debug($"User exists: {applicationUser.UserName}");
             return false;
         }
+
         return true;
     }
 
