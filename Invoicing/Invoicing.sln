@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Identity.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Identity.Domain", "Invoicing.Identity.Domain\Invoicing.Identity.Domain.csproj", "{43DC8C61-4FD7-4602-83BC-5A6FF886D668}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Identity.Tests", "Invoicing.Identity.Tests\Invoicing.Identity.Tests.csproj", "{1B5AAFE4-E804-4126-B6D1-E69895D05B91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,10 +26,15 @@ Global
 		{43DC8C61-4FD7-4602-83BC-5A6FF886D668}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA570E5A-164F-43A1-A09C-DE3C587BAB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA570E5A-164F-43A1-A09C-DE3C587BAB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B5AAFE4-E804-4126-B6D1-E69895D05B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B5AAFE4-E804-4126-B6D1-E69895D05B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B5AAFE4-E804-4126-B6D1-E69895D05B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B5AAFE4-E804-4126-B6D1-E69895D05B91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FA570E5A-164F-43A1-A09C-DE3C587BAB50} = {D2F33530-9E05-4A9F-8E07-0835E6446915}
 		{EFC4466A-7991-4915-8349-7CED14476954} = {D2F33530-9E05-4A9F-8E07-0835E6446915}
 		{43DC8C61-4FD7-4602-83BC-5A6FF886D668} = {D2F33530-9E05-4A9F-8E07-0835E6446915}
+		{1B5AAFE4-E804-4126-B6D1-E69895D05B91} = {D2F33530-9E05-4A9F-8E07-0835E6446915}
 	EndGlobalSection
 EndGlobal
