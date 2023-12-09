@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  identity-api:
+  identity-api-dev:
     build: 
       context: .
       dockerfile: ./Invoicing.Identity.API/Dockerfile
-    image: identity-api
+    image: identity-api-dev
     working_dir: /app
     ports:
       - "5000:5000"
@@ -15,13 +15,13 @@ services:
       - ConnectionStrings__IdentityDB=Host=identity-db;Port=5432;Database=YourDatabaseName;Username=YourUsername;Password=YourPassword;
       - Password=YourPassword
     depends_on:
-      - identity-db
+      - identity-db-dev
     networks:
-      - identity-network-external
+      - identity-network-dev-external
 
-  identity-db:
+  identity-db-dev:
     image: postgres:16.1
-    container_name: identity-db
+    container_name: identity-db-dev
     environment:
       POSTGRES_DB: YourDatabaseName
       POSTGRES_USER: YourUsername
@@ -31,8 +31,8 @@ services:
     volumes:
       - ./volumes/Development/IdentityDb:/var/lib/postgresql/data
     networks:
-      - identity-network-external
+      - identity-network-dev-external
 
 networks:
-  identity-network-external:
+  identity-network-dev-external:
     driver: bridge
