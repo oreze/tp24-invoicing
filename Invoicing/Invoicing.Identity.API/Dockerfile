@@ -1,15 +1,11 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-EXPOSE 80 
 COPY ["./Invoicing.Identity.API/Invoicing.Identity.API.csproj", "Invoicing.Identity.API/"]
 COPY ["./Invoicing.Identity.Domain/Invoicing.Identity.Domain.csproj", "Invoicing.Identity.Domain/"]
 COPY ["./Invoicing.Identity.Infrastructure/Invoicing.Identity.Infrastructure.csproj", "Invoicing.Identity.Infrastructure/"]
 
 RUN dotnet restore "Invoicing.Identity.API/Invoicing.Identity.API.csproj"
-
 WORKDIR /src
-
 COPY . .
-
 RUN dotnet build "./Invoicing.Identity.API/Invoicing.Identity.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -1,6 +1,6 @@
 ﻿namespace Invoicing.Identity.API.Configuration;
 
-public static class AppConfig
+public static class AppConfiguration
 {
     public static readonly string SystemTestsEnvironmentName = "SystemTests";
 }

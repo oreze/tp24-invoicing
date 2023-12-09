@@ -1,7 +1,10 @@
 using System.Reflection;
 using Invoicing.Identity.API.Configuration;
+using Invoicing.Identity.API.Configuration.Interfaces.Interfaces;
+using Invoicing.Identity.API.Extensions;
 using Invoicing.Identity.API.Seeders;
 using Invoicing.Identity.Domain.Entities;
+using Invoicing.Identity.Infrastructure.Configuration.Identity;
 using Invoicing.Identity.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +16,10 @@ builder.Host.UseSerilog((context, lc) => lc
     .WriteTo.Console()
     .Enrich.FromLogContext()
     .ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddOptions();
+builder.Services.Configure<AppSettings>(
+    builder.Configuration.GetSection("AppSettings"));
 
 var connectionString = builder.Configuration.GetConnectionString("IdentityDB")
                        ?? throw new ArgumentNullException("IdentityDB connection string is null.");
@@ -46,6 +53,7 @@ builder.Services
         options.ConfigureDbContext = b =>
             b.UseNpgsql(connectionString, opt => opt.MigrationsAssembly(migrationsAssembly));
     })
+    .AddProfileService<CustomProfileService>()
     .AddAspNetIdentity<ApplicationUser>();
 
 builder.Services.AddAuthentication();
@@ -54,8 +62,11 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddScoped<IDbSeeder, DbSeeder>();
+builder.Services.AddScoped<IDefaultEntitiesProvider, DefaultEntitiesProvider>();
+builder.Services.AddScoped<IDefaultIdentityConfigurationProvider, DefaultIdentityConfigurationProvider>();
 
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseSerilogRequestLogging();
@@ -66,9 +77,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment(AppConfig.SystemTestsEnvironmentName))
+if (app.Environment.IsDevelopment() || app.Environment.IsSystemTests())
 {
-    await Seeder.EnsureSeedData(app);
+    using var scope = app.Services.CreateScope();
+    var dbSeeder = scope.ServiceProvider.GetService<IDbSeeder>() ?? throw new ArgumentNullException(nameof(IDbSeeder));
+    await dbSeeder.EnsureSeedData(app);
 }
 
 app.UseRouting();
@@ -78,3 +91,7 @@ app.UseAuthorization();
 app.UseHttpsRedirection();
 
 app.Run();
+
+public partial class Program
+{
+}
