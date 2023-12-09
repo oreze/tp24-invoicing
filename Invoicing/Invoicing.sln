@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Identity.API", "Invoicing.Identity.API\Invoicing.Identity.API.csproj", "{FA570E5A-164F-43A1-A09C-DE3C587BAB50}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Invoicing", "Invoicing", "{D2F33530-9E05-4A9F-8E07-0835E6446915}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{D2F33530-9E05-4A9F-8E07-0835E6446915}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Identity.Infrastructure", "Invoicing.Identity.Infrastructure\Invoicing.Identity.Infrastructure.csproj", "{EFC4466A-7991-4915-8349-7CED14476954}"
 EndProject
