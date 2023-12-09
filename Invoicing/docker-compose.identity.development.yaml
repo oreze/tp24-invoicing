@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  identity-api-dev:
+    build: 
+      context: .
+      dockerfile: ./Invoicing.Identity.API/Dockerfile
+    image: identity-api-dev
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__IdentityDB=Host=identity-db;Port=5432;Database=YourDatabaseName;Username=YourUsername;Password=YourPassword;
+      - Password=YourPassword
+    depends_on:
+      - identity-db-dev
+    networks:
+      - identity-network-dev-external
+
+  identity-db-dev:
+    image: postgres:16.1
+    container_name: identity-db-dev
+    environment:
+      POSTGRES_DB: YourDatabaseName
+      POSTGRES_USER: YourUsername
+      POSTGRES_PASSWORD: YourPassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/Development/IdentityDb:/var/lib/postgresql/data
+    networks:
+      - identity-network-dev-external
+
+networks:
+  identity-network-dev-external:
+    driver: bridge
