@@ -1,4 +1,5 @@
 using System.Reflection;
+using Invoicing.Identity.API.Configuration;
 using Invoicing.Identity.API.Seeders;
 using Invoicing.Identity.Domain.Entities;
 using Invoicing.Identity.Infrastructure.Data;
@@ -63,6 +64,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment(AppConfig.SystemTestsEnvironmentName))
+{
     await Seeder.EnsureSeedData(app);
 }
 
