@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  receivables-db-system-tests:
+    image: postgres:16.1
+    container_name: receivables-db_system-tests
+    environment:
+      POSTGRES_DB: YourDatabaseName
+      POSTGRES_USER: YourUsername
+      POSTGRES_PASSWORD: YourPassword
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./volumes/SystemTests/ReceivablesDb:/var/lib/postgresql/data
+    networks:
+      - receivables-network-system-tests-external
+
+networks:
+  receivables-network-system-tests-external:
+    driver: bridge
