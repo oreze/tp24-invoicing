@@ -8,7 +8,7 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <Configurations>Debug;Release;SystemTests</Configurations>
+        <Configurations>Debug;Release;SystemTests;Development</Configurations>
         <Platforms>AnyCPU</Platforms>
         <RootNamespace>Invoicing.Identity.Tests</RootNamespace>
     </PropertyGroup>
