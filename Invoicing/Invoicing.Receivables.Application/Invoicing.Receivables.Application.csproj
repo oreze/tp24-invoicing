@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Invoicing.Receivables.Infrastructure</RootNamespace>
+        <Configurations>Debug;Release;SystemTests;Development</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.0"/>
+        <PackageReference Include="MediatR" Version="12.2.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Invoicing.Receivables.ApplicationContracts\Invoicing.Receivables.ApplicationContracts.csproj"/>
+        <ProjectReference Include="..\Invoicing.Receivables.Infrastructure\Invoicing.Receivables.Infrastructure.csproj"/>
+    </ItemGroup>
+
+</Project>
