@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>true</InvariantGlobalization>
         <RootNamespace>Invoicing.Identity.API</RootNamespace>
-        <Configurations>Debug;Release;SystemTests</Configurations>
+        <Configurations>Debug;Release;SystemTests;Development</Configurations>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
