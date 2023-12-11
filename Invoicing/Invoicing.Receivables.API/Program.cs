@@ -37,10 +37,7 @@ builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SupportNonNullableReferenceTypes();
-});
+builder.Services.AddSwaggerGen(options => { options.SupportNonNullableReferenceTypes(); });
 
 var app = builder.Build();
 

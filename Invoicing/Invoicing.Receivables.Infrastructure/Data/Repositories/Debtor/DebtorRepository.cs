@@ -22,10 +22,10 @@ public class DebtorRepository : IDebtorRepository
 
         if (!doesDebtorExists) await _dbContext.Debtors.AddAsync(debtor);
     }
-    
+
     public async Task AddRangeAsync(IEnumerable<Domain.Entities.Debtor> debtors)
     {
-        IEnumerable<Domain.Entities.Debtor> missingRecords = 
+        var missingRecords =
             debtors.Where(x => !_dbContext.Debtors.Any(z => z.Reference == x.Reference));
 
         await _dbContext.Debtors.AddRangeAsync(missingRecords);

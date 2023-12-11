@@ -18,7 +18,7 @@ public class DbSeeder : IDbSeeder
         var appDbContext = scope.ServiceProvider.GetService<AppDbContext>() ??
                            throw new ArgumentNullException(nameof(AppDbContext));
 
-        if (app.Environment.IsSystemTests() || app.Environment.IsDevelopment()) 
+        if (app.Environment.IsSystemTests() || app.Environment.IsDevelopment())
             await appDbContext.Database.EnsureDeletedAsync();
 
         await appDbContext.Database.EnsureCreatedAsync();
@@ -76,7 +76,7 @@ public class DbSeeder : IDbSeeder
     {
         var currencies = GetCurrenciesList();
         await currencyRepository.AddRangeAsync(currencies);
-        
+
         return currencies;
     }
 

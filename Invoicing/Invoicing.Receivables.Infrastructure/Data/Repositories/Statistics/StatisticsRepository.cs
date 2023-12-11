@@ -13,7 +13,7 @@ public class StatisticsRepository : IStatisticsRepository
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
-    
+
     public async Task<TotalRevenuePerCurrency> GetTotalRevenuePerCurrencyAsync()
     {
         IList<Money> totalRevenuePerCurrency = await _dbContext.Invoices
@@ -25,7 +25,7 @@ public class StatisticsRepository : IStatisticsRepository
 
         return new TotalRevenuePerCurrency(totalRevenuePerCurrency);
     }
-    
+
     public async Task<AverageTransactionValuePerCurrency> GetAverageTransactionValuePerCurrencyAsync()
     {
         IEnumerable<Money> averageTransactionValuePerCurrency = await _dbContext.Invoices
@@ -62,8 +62,8 @@ public class StatisticsRepository : IStatisticsRepository
             .Select(group =>
                 new
                 {
-                    PaymentStatus = group.Key.PaymentStatus,
-                    CurrencyCode = group.Key.CurrencyCode,
+                    group.Key.PaymentStatus,
+                    group.Key.CurrencyCode,
                     TotalPaidValue = group.Sum(i => i.PaidValue)
                 })
             .GroupBy(result => result.PaymentStatus, result => new Money(result.TotalPaidValue, result.CurrencyCode))

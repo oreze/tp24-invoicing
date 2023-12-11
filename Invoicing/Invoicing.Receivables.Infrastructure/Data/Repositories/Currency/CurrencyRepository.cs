@@ -25,7 +25,7 @@ public class CurrencyRepository : ICurrencyRepository
 
     public async Task AddRangeAsync(IEnumerable<Domain.Entities.Currency> currency)
     {
-        IEnumerable<Domain.Entities.Currency> missingRecords = 
+        var missingRecords =
             currency.Where(x => !_dbContext.Currencies.Any(z => z.Code == x.Code));
 
         await _dbContext.Currencies.AddRangeAsync(missingRecords);
