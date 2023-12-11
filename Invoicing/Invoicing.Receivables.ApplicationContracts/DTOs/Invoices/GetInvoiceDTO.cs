@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Identity.Receivables.ApplicationContracts.DTOs;
+namespace Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 
 public class GetInvoiceDTO
 {
