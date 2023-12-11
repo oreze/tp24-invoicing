@@ -4,5 +4,6 @@ public interface IInvoiceRepository
 {
     Task<Domain.Entities.Invoice> GetByIdAsync(int id);
     Task AddAsync(Domain.Entities.Invoice invoice);
+    Task AddRangeAsync(IEnumerable<Domain.Entities.Invoice> invoice);
     Task<int> SaveChangesAsync();
 }

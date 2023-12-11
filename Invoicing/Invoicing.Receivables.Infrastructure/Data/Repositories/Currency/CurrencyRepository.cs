@@ -23,6 +23,14 @@ public class CurrencyRepository : ICurrencyRepository
         if (!doesCurrencyExists) await _dbContext.Currencies.AddAsync(currency);
     }
 
+    public async Task AddRangeAsync(IEnumerable<Domain.Entities.Currency> currency)
+    {
+        IEnumerable<Domain.Entities.Currency> missingRecords = 
+            currency.Where(x => !_dbContext.Currencies.Any(z => z.Code == x.Code));
+
+        await _dbContext.Currencies.AddRangeAsync(missingRecords);
+    }
+
     public async Task<int> SaveChangesAsync()
     {
         return await _dbContext.SaveChangesAsync();

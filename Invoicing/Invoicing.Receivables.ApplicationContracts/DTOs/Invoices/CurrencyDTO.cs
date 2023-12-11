@@ -1,4 +1,4 @@
-﻿namespace Identity.Receivables.ApplicationContracts.DTOs;
+﻿namespace Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 
 public class CurrencyDTO
 {

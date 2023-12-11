@@ -1,4 +1,5 @@
-﻿using Invoicing.Receivables.Domain.Exceptions;
+﻿using Invoicing.Receivables.Domain.Enums;
+using Invoicing.Receivables.Domain.Exceptions;
 
 namespace Invoicing.Receivables.Domain.Entities;
 
@@ -39,7 +40,7 @@ public class Invoice
         };
     }
 
-    public static void ValidateInput(string reference, DateTime issueDate, decimal openingValue, decimal paidValue,
+    private static void ValidateInput(string reference, DateTime issueDate, decimal openingValue, decimal paidValue,
         DateTime dueDate, DateTime? closedDate, DateTime? cancelled, Debtor debtor, Currency currency)
     {
         if (string.IsNullOrWhiteSpace(reference))

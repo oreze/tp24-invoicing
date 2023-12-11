@@ -18,7 +18,8 @@ public class DbSeeder : IDbSeeder
         var appDbContext = scope.ServiceProvider.GetService<AppDbContext>() ??
                            throw new ArgumentNullException(nameof(AppDbContext));
 
-        if (app.Environment.IsSystemTests()) await appDbContext.Database.EnsureDeletedAsync();
+        if (app.Environment.IsSystemTests() || app.Environment.IsDevelopment()) 
+            await appDbContext.Database.EnsureDeletedAsync();
 
         await appDbContext.Database.EnsureCreatedAsync();
 
@@ -42,14 +43,15 @@ public class DbSeeder : IDbSeeder
 
         var randomDebtors = await SeedRandomDebtorsAsync(debtorRepository);
         var availableCurrencies = await SeedCurrenciesAsync(currencyRepository);
+        var toBeAdded = new List<Invoice>();
 
-        for (var i = 0; i < 100; i++)
+        for (var i = 0; i < 1000; i++)
         {
             var issueDate = faker.Date.Past();
             DateTime? closedDate = i % 7 == 0 ? faker.Date.Between(issueDate, DateTime.Today) : null;
             DateTime? cancelled = i % 19 == 0 && !closedDate.HasValue ? faker.Date.Between(issueDate, DateTime.Today) : null;
             var openingValue = Round(faker.Random.Decimal(1000, 5000), 2);
-            var paidValue = i % 3 == 0 ? Round(faker.Random.Decimal(500, openingValue), 2) : 0;
+            var paidValue = i % 3 == 0 ? Round(faker.Random.Decimal(0, openingValue), 2) : openingValue;
 
             var invoice = Invoice.Create(
                 $"INV{i:D3}",
@@ -63,18 +65,18 @@ public class DbSeeder : IDbSeeder
                 availableCurrencies.First(x => x.Code == "EUR")
             );
 
-            await invoiceRepository.AddAsync(invoice);
+            toBeAdded.Add(invoice);
         }
+
+        await invoiceRepository.AddRangeAsync(toBeAdded);
     }
 
 
     private async Task<IList<Currency>> SeedCurrenciesAsync(ICurrencyRepository currencyRepository)
     {
         var currencies = GetCurrenciesList();
-
-        foreach (var currency in currencies)
-            await currencyRepository.AddAsync(currency);
-
+        await currencyRepository.AddRangeAsync(currencies);
+        
         return currencies;
     }
 
@@ -97,10 +99,10 @@ public class DbSeeder : IDbSeeder
                 faker.Random.AlphaNumeric(20)
             );
 
-            await debtorRepository.AddAsync(debtor);
             debtors.Add(debtor);
         }
 
+        await debtorRepository.AddRangeAsync(debtors);
         return debtors;
     }
 
