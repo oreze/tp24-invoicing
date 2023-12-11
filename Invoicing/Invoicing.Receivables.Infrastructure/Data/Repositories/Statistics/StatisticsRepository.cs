@@ -20,7 +20,7 @@ public class StatisticsRepository : IStatisticsRepository
             .Where(i => i.ClosedDate != null)
             .GroupBy(i => i.CurrencyCode)
             .Select(group =>
-                new Money(group.Sum(i => i.OpeningValue), group.Key)
+                new Money(group.Sum(i => i.PaidValue), group.Key)
             ).ToListAsync();
 
         return new TotalRevenuePerCurrency(totalRevenuePerCurrency);
