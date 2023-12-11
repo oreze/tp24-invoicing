@@ -1,4 +1,4 @@
-﻿using Identity.Receivables.ApplicationContracts.DTOs;
+﻿using Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 using Invoicing.Receivables.Domain.Entities;
 using Invoicing.Receivables.Domain.Exceptions;
 using Invoicing.Receivables.Infrastructure.Data.Repositories.Currency;

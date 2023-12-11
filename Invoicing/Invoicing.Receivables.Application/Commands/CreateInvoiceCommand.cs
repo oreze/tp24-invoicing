@@ -1,4 +1,4 @@
-﻿using Identity.Receivables.ApplicationContracts.DTOs;
+﻿using Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 using MediatR;
 
 namespace Invoicing.Receivables.Infrastructure.Commands;

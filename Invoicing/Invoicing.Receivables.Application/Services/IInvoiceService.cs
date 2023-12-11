@@ -1,4 +1,4 @@
-﻿using Identity.Receivables.ApplicationContracts.DTOs;
+﻿using Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 
 namespace Invoicing.Receivables.Infrastructure.Services;
 
