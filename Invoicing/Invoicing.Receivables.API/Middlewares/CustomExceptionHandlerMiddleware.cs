@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Identity.Receivables.ApplicationContracts.DTOs;
+using Identity.Receivables.ApplicationContracts.DTOs.Common;
 using Invoicing.Receivables.Domain.Exceptions;
 using Serilog;
 using ILogger = Serilog.ILogger;

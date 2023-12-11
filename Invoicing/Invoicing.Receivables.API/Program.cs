@@ -3,6 +3,7 @@ using Invoicing.Receivables.Infrastructure.Data;
 using Invoicing.Receivables.Infrastructure.Data.Repositories.Currency;
 using Invoicing.Receivables.Infrastructure.Data.Repositories.Debtor;
 using Invoicing.Receivables.Infrastructure.Data.Repositories.Invoice;
+using Invoicing.Receivables.Infrastructure.Data.Repositories.Statistics;
 using Invoicing.Receivables.Infrastructure.Extensions;
 using Invoicing.Receivables.Infrastructure.Seeders;
 using Invoicing.Receivables.Infrastructure.Services;
@@ -28,13 +29,18 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IDebtorRepository, DebtorRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SupportNonNullableReferenceTypes();
+});
 
 var app = builder.Build();
 

@@ -1,4 +1,4 @@
-﻿using Identity.Receivables.ApplicationContracts.DTOs;
+﻿using Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 using Invoicing.Receivables.Infrastructure.Commands;
 using Invoicing.Receivables.Infrastructure.Queries;
 using MediatR;
@@ -8,11 +8,11 @@ namespace Invoicing.Receivables.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class ReceivablesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public WeatherForecastController(IMediator mediator)
+    public ReceivablesController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -31,6 +31,7 @@ public class WeatherForecastController : ControllerBase
     {
         var command = new CreateInvoiceCommand(dto);
         var newInvoiceId = await _mediator.Send(command);
+
         return CreatedAtAction(nameof(CreateInvoice), new { id = newInvoiceId }, null);
     }
 }
