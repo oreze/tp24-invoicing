@@ -25,6 +25,14 @@ public class InvoiceRepository : IInvoiceRepository
 
         if (!doesInvoiceExists) await _dbContext.Invoices.AddAsync(invoice);
     }
+    
+    public async Task AddRangeAsync(IEnumerable<Domain.Entities.Invoice> invoices)
+    {
+        IEnumerable<Domain.Entities.Invoice> missingRecords = 
+            invoices.Where(x => !_dbContext.Invoices.Any(z => z.Reference == x.Reference));
+
+        await _dbContext.Invoices.AddRangeAsync(missingRecords);
+    }
 
     public async Task<int> SaveChangesAsync()
     {
