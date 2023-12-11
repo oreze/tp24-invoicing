@@ -2,7 +2,6 @@
 using Invoicing.Receivables.Infrastructure.Configuration.EntitiesConfiguration;
 using Invoicing.Receivables.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Invoicing.Receivables.UnitTests.Infrastructure.Configuration.EntitiesConfiguration;
@@ -13,9 +12,9 @@ public class DebtorTypeEntityConfigurationTests
     public void Configure_DebtorEntity_ConfiguresProperties()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "test_database")
+            .UseInMemoryDatabase("test_database")
             .Options;
-        
+
         // Arrange
         using var dbContext = new AppDbContext(options);
         var builder = new ModelBuilder(new ConventionSet());
@@ -55,5 +54,6 @@ public class DebtorTypeEntityConfigurationTests
             .FirstOrDefault(index => index.Properties.Contains(referenceProperty));
 
         Assert.NotNull(indexOnReference);
-        Assert.True(indexOnReference.IsUnique);    }
+        Assert.True(indexOnReference.IsUnique);
+    }
 }

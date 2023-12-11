@@ -2,7 +2,6 @@
 using Invoicing.Receivables.Infrastructure.Configuration.EntitiesConfiguration;
 using Invoicing.Receivables.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Invoicing.Receivables.UnitTests.Infrastructure.Configuration.EntitiesConfiguration;
@@ -14,7 +13,7 @@ public class CurrencyTypeEntityConfigurationUnitTests
     {
         // Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "test_database")
+            .UseInMemoryDatabase("test_database")
             .Options;
 
         using var dbContext = new AppDbContext(options);

@@ -2,7 +2,6 @@
 using Invoicing.Receivables.Infrastructure.Configuration.EntitiesConfiguration;
 using Invoicing.Receivables.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Invoicing.Receivables.UnitTests.Infrastructure.Configuration.EntitiesConfiguration;
@@ -14,9 +13,9 @@ public class InvoiceTypeEntityConfigurationTests
     {
         // Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: "test_database")
+            .UseInMemoryDatabase("test_database")
             .Options;
-        
+
         // Arrange
         using var dbContext = new AppDbContext(options);
         var builder = new ModelBuilder(new ConventionSet());
@@ -41,7 +40,7 @@ public class InvoiceTypeEntityConfigurationTests
 
         Assert.True(entityType.FindProperty(nameof(Invoice.ClosedDate)).IsNullable);
         Assert.True(entityType.FindProperty(nameof(Invoice.Cancelled)).IsNullable);
-        
+
         var referenceProperty = entityType.FindProperty(nameof(Invoice.Reference));
 
         Assert.NotNull(referenceProperty);
@@ -51,8 +50,8 @@ public class InvoiceTypeEntityConfigurationTests
 
         Assert.NotNull(indexOnReference);
         Assert.True(indexOnReference.IsUnique);
-        
-        
+
+
         var debtorNavigation = entityType.FindNavigation(nameof(Invoice.Debtor));
         Assert.NotNull(debtorNavigation);
         Assert.Equal(nameof(Invoice.DebtorID), debtorNavigation.ForeignKey.Properties.Single().Name);
