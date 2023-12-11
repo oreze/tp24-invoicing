@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Receivables.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Receivables.ApplicationContracts", "Invoicing.Receivables.ApplicationContracts\Invoicing.Receivables.ApplicationContracts.csproj", "{E90AEC70-F3BC-423C-91B2-0295ED2BF584}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing.Receivables.UnitTests", "Invoicing.Receivables.UnitTests\Invoicing.Receivables.UnitTests.csproj", "{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,14 @@ Global
 		{E90AEC70-F3BC-423C-91B2-0295ED2BF584}.SystemTests|Any CPU.Build.0 = SystemTests|Any CPU
 		{E90AEC70-F3BC-423C-91B2-0295ED2BF584}.Development|Any CPU.ActiveCfg = Development|Any CPU
 		{E90AEC70-F3BC-423C-91B2-0295ED2BF584}.Development|Any CPU.Build.0 = Development|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.SystemTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.SystemTests|Any CPU.Build.0 = Debug|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320}.Development|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FA570E5A-164F-43A1-A09C-DE3C587BAB50} = {D2F33530-9E05-4A9F-8E07-0835E6446915}
@@ -123,5 +133,6 @@ Global
 		{2A7CC278-1C8D-4B5A-A487-68D18649B8AC} = {2B80F788-56B0-464B-8BDD-E0A834462381}
 		{6225BC6E-B8CA-436F-B532-54DF7A805271} = {2B80F788-56B0-464B-8BDD-E0A834462381}
 		{E90AEC70-F3BC-423C-91B2-0295ED2BF584} = {2B80F788-56B0-464B-8BDD-E0A834462381}
+		{9A9880F0-4CEC-4FC2-8A0B-5184C1617320} = {2B80F788-56B0-464B-8BDD-E0A834462381}
 	EndGlobalSection
 EndGlobal

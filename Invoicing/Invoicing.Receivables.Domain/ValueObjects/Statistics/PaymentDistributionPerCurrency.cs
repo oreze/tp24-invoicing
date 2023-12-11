@@ -19,5 +19,9 @@ public class PaymentDistributionPerCurrency
         if (invoicePaymentTypePerCurrency == null)
             throw new InputNullException(nameof(invoicePaymentTypePerCurrency),
                 "Invoice payment type per currency list cannot be null.");
+
+        if (invoicePaymentTypePerCurrency.Values.Any(i => i.Any(i => i == null)))
+            throw new InputNullException(nameof(invoicePaymentTypePerCurrency),
+                "Elements of the list cannot be null.");
     }
 }

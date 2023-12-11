@@ -17,5 +17,9 @@ public class TotalRevenuePerCurrency
     {
         if (totalRevenueInCurrency == null)
             throw new InputNullException(nameof(totalRevenueInCurrency), "Total revenue per currency list cannot be null.");
+
+        if (totalRevenueInCurrency.Any(i => i == null))
+            throw new InputNullException(nameof(totalRevenueInCurrency),
+                "Elements of the list cannot be null.");
     }
 }

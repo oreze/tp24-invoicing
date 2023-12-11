@@ -1,5 +1,4 @@
-﻿using Invoicing.Receivables.Domain.Enums;
-using Invoicing.Receivables.Domain.Exceptions;
+﻿using Invoicing.Receivables.Domain.Exceptions;
 
 namespace Invoicing.Receivables.Domain.Entities;
 
