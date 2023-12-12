@@ -18,6 +18,7 @@ services:
       - receivables-db-dev
     networks:
       - receivables-network-dev-external
+    command: ["./wait-for-postgres.sh", "receivables-db-dev:5432", "--", "echo",  "Database is UP"]
 
   receivables-db-dev:
     image: postgres:16.1

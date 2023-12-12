@@ -18,7 +18,8 @@ services:
       - identity-db-dev
     networks:
       - identity-network-dev-external
-
+    command: ["./wait-for-postgres.sh", "identity-db:5432", "--", "echo",  "Database is UP"]
+      
   identity-db-dev:
     image: postgres:16.1
     container_name: identity-db-dev
