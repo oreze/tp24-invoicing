@@ -32,6 +32,6 @@ public class ReceivablesController : ControllerBase
         var command = new CreateInvoiceCommand(dto);
         var newInvoiceId = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(CreateInvoice), new { id = newInvoiceId }, null);
+        return Created($"/api/invoices/{newInvoiceId}", newInvoiceId);
     }
 }

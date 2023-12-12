@@ -27,7 +27,10 @@ public class Currency
         if (string.IsNullOrWhiteSpace(code))
             throw new InputNullException(nameof(code), "Currency code cannot be null or empty.");
 
+        if (code.Length != 3)
+            throw new InputNullException(nameof(code), "Currency code has to be 3 characters long.");
+
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException(nameof(name), "Currency name cannot be null or empty.");
+            throw new InputException(nameof(name), "Currency name cannot be null or empty.");
     }
 }

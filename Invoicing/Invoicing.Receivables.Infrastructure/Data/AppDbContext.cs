@@ -10,9 +10,9 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Invoice> Invoices { get; set; }
-    public DbSet<Debtor> Debtors { get; set; }
-    public DbSet<Currency> Currencies { get; set; }
+    public virtual DbSet<Invoice> Invoices { get; set; }
+    public virtual DbSet<Debtor> Debtors { get; set; }
+    public virtual DbSet<Currency> Currencies { get; set; }
 
     public async Task<bool> IsAnyEntityInDb()
     {

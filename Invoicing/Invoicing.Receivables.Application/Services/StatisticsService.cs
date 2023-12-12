@@ -66,7 +66,7 @@ public class StatisticsService : IStatisticsService
     {
         return status switch
         {
-            InvoicePaymentStatus.Awaiting => ApiInvoicePaymentStatus.Invalid,
+            InvoicePaymentStatus.Awaiting => ApiInvoicePaymentStatus.Awaiting,
             InvoicePaymentStatus.Paid => ApiInvoicePaymentStatus.Paid,
             InvoicePaymentStatus.Closed => ApiInvoicePaymentStatus.Closed,
             InvoicePaymentStatus.Overdue => ApiInvoicePaymentStatus.Overdue,

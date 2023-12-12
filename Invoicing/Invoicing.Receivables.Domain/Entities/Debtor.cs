@@ -37,7 +37,7 @@ public class Debtor
         };
     }
 
-    public static void ValidateInput(string reference, string name, string countryCode)
+    private static void ValidateInput(string reference, string name, string countryCode)
     {
         if (string.IsNullOrWhiteSpace(reference))
             throw new InputNullException(nameof(reference), "Debtor reference number cannot be null or empty.");
@@ -45,7 +45,10 @@ public class Debtor
         if (string.IsNullOrWhiteSpace(name))
             throw new InputNullException(nameof(name), "Debtor name cannot be null or empty.");
 
-        if (string.IsNullOrWhiteSpace(reference))
+        if (string.IsNullOrWhiteSpace(countryCode))
             throw new InputNullException(nameof(countryCode), "Debtor country code cannot be null or empty.");
+
+        if (countryCode.Length != 2)
+            throw new InputException(nameof(countryCode), "Country code must be 2 characters long.");
     }
 }

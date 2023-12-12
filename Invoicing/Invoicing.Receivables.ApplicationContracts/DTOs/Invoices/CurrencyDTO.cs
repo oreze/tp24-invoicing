@@ -1,7 +1,10 @@
-﻿namespace Identity.Receivables.ApplicationContracts.DTOs.Invoices;
+﻿using System.Text.Json.Serialization;
+
+namespace Identity.Receivables.ApplicationContracts.DTOs.Invoices;
 
 public class CurrencyDTO
 {
-    public string Code { get; set; }
-    public string Name { get; set; }
+    [JsonPropertyName("code")] public string Code { get; set; }
+
+    [JsonPropertyName("name")] public string Name { get; set; }
 }

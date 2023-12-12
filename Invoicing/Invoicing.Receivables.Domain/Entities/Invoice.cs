@@ -1,5 +1,4 @@
-﻿using Invoicing.Receivables.Domain.Enums;
-using Invoicing.Receivables.Domain.Exceptions;
+﻿using Invoicing.Receivables.Domain.Exceptions;
 
 namespace Invoicing.Receivables.Domain.Entities;
 
@@ -9,7 +8,8 @@ public class Invoice
     {
     }
 
-    public int ID { get; }
+    // ReSharper disable once UnusedAutoPropertyAccessor.Local
+    public int ID { get; private set; }
     public string Reference { get; private set; }
     public DateTime IssueDate { get; private set; }
     public decimal OpeningValue { get; private set; }

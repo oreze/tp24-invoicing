@@ -18,5 +18,9 @@ public class AverageTransactionValuePerCurrency
         if (averageTransactionValuePerCurrency == null)
             throw new InputNullException(nameof(averageTransactionValuePerCurrency),
                 "Average transaction value per currency list cannot be null.");
+
+        if (averageTransactionValuePerCurrency.Any(i => i == null))
+            throw new InputNullException(nameof(averageTransactionValuePerCurrency),
+                "Elements of the list cannot be null.");
     }
 }
