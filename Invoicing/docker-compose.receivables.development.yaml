@@ -18,7 +18,7 @@ services:
       - receivables-db-dev
     networks:
       - receivables-network-dev-external
-    command: curl --head -X GET --retry 20 --retry-connrefused --retry-delay 1 receivables-db-dev:5433
+    command: curl --head -X GET --retry 20 --retry-connrefused --retry-delay 5 receivables-db-dev:5433
     restart: on-failure
 
   receivables-db-dev:

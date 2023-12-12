@@ -18,7 +18,7 @@ services:
       - identity-db-dev
     networks:
       - identity-network-dev-external
-    command: curl --head -X GET --retry 20 --retry-connrefused --retry-delay 1 identity-db:5432
+    command: curl --head -X GET --retry 20 --retry-connrefused --retry-delay 5 identity-db:5432
     restart: on-failure
       
   identity-db-dev:
