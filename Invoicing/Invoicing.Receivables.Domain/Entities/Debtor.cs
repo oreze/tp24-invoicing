@@ -47,5 +47,8 @@ public class Debtor
 
         if (string.IsNullOrWhiteSpace(countryCode))
             throw new InputNullException(nameof(countryCode), "Debtor country code cannot be null or empty.");
+
+        if (countryCode.Length != 2)
+            throw new InputException(nameof(countryCode), "Country code must be 2 characters long.");
     }
 }

@@ -33,7 +33,8 @@ public class InvoiceService : IInvoiceService
     public async Task<int> CreateInvoiceAsync(CreateInvoiceDTO createInvoiceDto)
     {
         var currency = await _currencyRepository.GetByCodeAsync(createInvoiceDto.CurrencyCode)
-                       ?? throw new NotFoundException($"Invoice currency code {createInvoiceDto.CurrencyCode} was not found.");
+                       ?? throw new InputException(nameof(createInvoiceDto.CurrencyCode),
+                           $"Invoice currency code {createInvoiceDto.CurrencyCode} was not found.");
 
         var debtor = await _debtorRepository.GetByReferenceAsync(createInvoiceDto.DebtorReference)
                      ?? CreateDebtor(createInvoiceDto);
@@ -74,7 +75,7 @@ public class InvoiceService : IInvoiceService
             Address2 = debtor.Address2,
             Name = debtor.Name,
             State = debtor.State,
-            Town = debtor.State,
+            Town = debtor.Town,
             Zip = debtor.Zip,
             CountryCode = debtor.CountryCode,
             RegistrationNumber = debtor.RegistrationNumber

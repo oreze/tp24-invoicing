@@ -1,7 +1,10 @@
-﻿namespace Identity.Receivables.ApplicationContracts.DTOs.Statistics;
+﻿using System.Text.Json.Serialization;
+
+namespace Identity.Receivables.ApplicationContracts.DTOs.Statistics;
 
 public class MoneyDTO
 {
-    public decimal Amount { get; set; }
-    public string CurrencyCode { get; set; }
+    [JsonPropertyName("amount")] public decimal Amount { get; set; }
+
+    [JsonPropertyName("currencyCode")] public string CurrencyCode { get; set; }
 }

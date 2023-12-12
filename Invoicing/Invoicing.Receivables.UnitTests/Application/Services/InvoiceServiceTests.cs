@@ -112,7 +112,7 @@ public class InvoiceServiceTests
         var invoiceService = new InvoiceService(invoiceRepositoryMock.Object, debtorRepositoryMock.Object, currencyRepositoryMock.Object);
 
         // Act and Assert
-        await Assert.ThrowsAsync<NotFoundException>(() => invoiceService.CreateInvoiceAsync(createInvoiceDto));
+        await Assert.ThrowsAsync<InputException>(() => invoiceService.CreateInvoiceAsync(createInvoiceDto));
 
         // Verify that the repositories' methods were called with the correct parameters
         currencyRepositoryMock.Verify(repo => repo.GetByCodeAsync(createInvoiceDto.CurrencyCode), Times.Once);

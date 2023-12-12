@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
+        <EnvironmentName>SystemTests</EnvironmentName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -12,10 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
-        <PackageReference Include="Moq" Version="4.20.70"/>
         <PackageReference Include="xunit" Version="2.4.2"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,9 +28,22 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Invoicing.Receivables.API\Invoicing.Receivables.API.csproj"/>
-        <ProjectReference Include="..\Invoicing.Receivables.Application\Invoicing.Receivables.Application.csproj"/>
-        <ProjectReference Include="..\Invoicing.Receivables.Domain\Invoicing.Receivables.Domain.csproj"/>
-        <ProjectReference Include="..\Invoicing.Receivables.Infrastructure\Invoicing.Receivables.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Invoicing.Receivables.ApplicationContracts\Invoicing.Receivables.ApplicationContracts.csproj"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="appsettings.SystemTests.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="xunit.runner.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 
 </Project>

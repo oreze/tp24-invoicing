@@ -60,3 +60,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+namespace Invoicing.Receivables.API
+{
+    public class Program
+    {
+    }
+}

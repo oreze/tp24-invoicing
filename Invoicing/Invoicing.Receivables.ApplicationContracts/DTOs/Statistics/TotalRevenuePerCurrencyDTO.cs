@@ -1,6 +1,8 @@
-﻿namespace Identity.Receivables.ApplicationContracts.DTOs.Statistics;
+﻿using System.Text.Json.Serialization;
+
+namespace Identity.Receivables.ApplicationContracts.DTOs.Statistics;
 
 public class TotalRevenuePerCurrencyDTO
 {
-    public IEnumerable<MoneyDTO> Values { get; set; }
+    [JsonPropertyName("values")] public IEnumerable<MoneyDTO> Values { get; set; }
 }

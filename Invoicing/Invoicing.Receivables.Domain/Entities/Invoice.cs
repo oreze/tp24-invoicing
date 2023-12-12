@@ -8,7 +8,8 @@ public class Invoice
     {
     }
 
-    public int ID { get; }
+    // ReSharper disable once UnusedAutoPropertyAccessor.Local
+    public int ID { get; private set; }
     public string Reference { get; private set; }
     public DateTime IssueDate { get; private set; }
     public decimal OpeningValue { get; private set; }

@@ -17,14 +17,21 @@ public class DbSeeder : IDbSeeder
         using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
         var appDbContext = scope.ServiceProvider.GetService<AppDbContext>() ??
                            throw new ArgumentNullException(nameof(AppDbContext));
-
-        if (app.Environment.IsSystemTests() || app.Environment.IsDevelopment())
-            await appDbContext.Database.EnsureDeletedAsync();
-
+        await appDbContext.Database.EnsureDeletedAsync();
         await appDbContext.Database.EnsureCreatedAsync();
+
 
         var currencyRepository = scope.ServiceProvider.GetService<ICurrencyRepository>()
                                  ?? throw new ArgumentNullException(nameof(ICurrencyRepository));
+
+        IEnumerable<Currency> currencies = await SeedCurrenciesAsync(currencyRepository);
+
+        if (app.Environment.IsSystemTests())
+        {
+            await appDbContext.SaveChangesAsync();
+            return;
+        }
+
         var debtorRepository = scope.ServiceProvider.GetService<IDebtorRepository>()
                                ?? throw new ArgumentNullException(nameof(IDebtorRepository));
         var invoiceRepository = scope.ServiceProvider.GetService<IInvoiceRepository>()
@@ -32,17 +39,17 @@ public class DbSeeder : IDbSeeder
 
         if (!await appDbContext.IsAnyEntityInDb())
         {
-            await SeedInvoices(invoiceRepository, debtorRepository, currencyRepository);
+            await SeedInvoices(invoiceRepository, debtorRepository, currencies);
             await appDbContext.SaveChangesAsync();
         }
     }
 
-    private async Task SeedInvoices(IInvoiceRepository invoiceRepository, IDebtorRepository debtorRepository, ICurrencyRepository currencyRepository)
+    private async Task SeedInvoices(IInvoiceRepository invoiceRepository, IDebtorRepository debtorRepository, IEnumerable<Currency> currencies)
     {
         var faker = new Faker();
 
         var randomDebtors = await SeedRandomDebtorsAsync(debtorRepository);
-        var availableCurrencies = await SeedCurrenciesAsync(currencyRepository);
+        var availableCurrencies = currencies;
         var toBeAdded = new List<Invoice>();
 
         for (var i = 0; i < 1000; i++)

@@ -16,6 +16,11 @@ public class CurrencyRepository : ICurrencyRepository
         return await _dbContext.Currencies.FirstOrDefaultAsync(c => c.Code == code);
     }
 
+    public async Task<IEnumerable<Domain.Entities.Currency>> GetAll()
+    {
+        return await _dbContext.Currencies.ToListAsync();
+    }
+
     public async Task AddAsync(Domain.Entities.Currency currency)
     {
         var doesCurrencyExists = await _dbContext.Currencies.AnyAsync(c => c.Code == currency.Code);
