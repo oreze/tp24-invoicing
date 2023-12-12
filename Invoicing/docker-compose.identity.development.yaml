@@ -8,17 +8,18 @@ services:
     image: identity-api-dev
     working_dir: /app
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__IdentityDB=Host=identity-db;Port=5432;Database=YourDatabaseName;Username=YourUsername;Password=YourPassword;
+      - ConnectionStrings__IdentityDB=Host=identity-db-dev;Port=5432;Database=YourDatabaseName;Username=YourUsername;Password=YourPassword;
       - Password=YourPassword
     depends_on:
       - identity-db-dev
     networks:
       - identity-network-dev-external
-    command: ["./wait-for-postgres.sh", "identity-db:5432", "--", "echo",  "Database is UP"]
+    command: curl --head -X GET --retry 20 --retry-connrefused --retry-delay 1 identity-db:5432
+    restart: on-failure
       
   identity-db-dev:
     image: postgres:16.1

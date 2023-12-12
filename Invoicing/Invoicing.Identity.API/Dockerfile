@@ -12,6 +12,7 @@ FROM build AS publish
 RUN dotnet publish "./Invoicing.Identity.API/Invoicing.Identity.API.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+RUN apt-get update && apt-get install -y curl
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Invoicing.Identity.API.dll"]
