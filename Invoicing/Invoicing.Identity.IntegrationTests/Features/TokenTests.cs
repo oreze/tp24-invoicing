@@ -10,20 +10,26 @@ using Microsoft.Extensions.Options;
 
 namespace Invoicing.Identity.Tests.Features;
 
-public class TokenTests : IClassFixture<WebApplicationFactory<Program>>
+public class TokenTests: IDisposable
 {
     private readonly IOptions<AppSettings> _appSettings;
     private readonly HttpClient _httpClient;
     private readonly WebApplicationFactory<Program> _webApplicationFactory;
 
-    public TokenTests(WebApplicationFactory<Program> webApplicationFactory)
+    public TokenTests()
     {
-        _webApplicationFactory = webApplicationFactory;
+        _webApplicationFactory = new WebApplicationFactory<Program>();
         _httpClient = _webApplicationFactory.CreateDefaultClient();
 
         using var scope = _webApplicationFactory.Services.CreateScope();
         _appSettings = scope.ServiceProvider.GetService<IOptions<AppSettings>>()
                        ?? throw new ArgumentNullException(nameof(IOptions<AppSettings>));
+    }
+    
+    public void Dispose()
+    {
+        _httpClient?.Dispose();
+        _webApplicationFactory?.Dispose();
     }
 
     [Fact]

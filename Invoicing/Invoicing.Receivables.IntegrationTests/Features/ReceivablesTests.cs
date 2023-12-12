@@ -9,17 +9,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Invoicing.Receivables.IntegrationTests.Features;
 
-public class ReceivablesTests : IClassFixture<WebApplicationFactory<Program>>
+public class ReceivablesTests : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly WebApplicationFactory<Program> _webApplicationFactory;
 
-    public ReceivablesTests(WebApplicationFactory<Program> webApplicationFactory)
+    public ReceivablesTests()
     {
-        _webApplicationFactory = webApplicationFactory;
+        _webApplicationFactory = new WebApplicationFactory<Program>();
         _httpClient = _webApplicationFactory.CreateDefaultClient();
-
-        using var scope = _webApplicationFactory.Services.CreateScope();
+    }
+    
+    public void Dispose()
+    {
+        _httpClient?.Dispose();
+        _webApplicationFactory?.Dispose();
     }
 
     [Fact]

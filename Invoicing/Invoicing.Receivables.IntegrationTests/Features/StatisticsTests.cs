@@ -22,6 +22,7 @@ public class StatisticsTests : IDisposable
 
     public void Dispose()
     {
+        _httpClient?.Dispose();
         _webApplicationFactory?.Dispose();
     }
 
