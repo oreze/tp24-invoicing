@@ -10,7 +10,7 @@ The current architecture consists of two separate APIs (Identity.API and the com
 
 I have omitted several features I initially intended to implement, but the solution still includes functionalities for adding/getting receivables (invoices) and retrieving some basic statistics used to assess the company's health.
 
-My next step would involve refactoring, such as extracting enums and improving the structure of the function in StatisticsRepository. Additionally, I planned to integrate the Identity.API service (IdentityServer) with Receivables.API, allowing only authorized APIs to perform operations. As the application expands, performance tests will also be added.
+My next step would involve refactoring, such as extracting secrets, configs, enums and improving the structure of the function in StatisticsRepository. Additionally, I planned to integrate the Identity.API service (IdentityServer) with Receivables.API, allowing only authorized APIs to perform operations. As the application expands, performance tests will also be added.
 
 # Getting Started
 
